@@ -24,7 +24,29 @@ const Home = () => {
       </div>
 
       <div className='main-container'>
+        <div className='title basic-padding'>
+          <p>Content Types</p>
+        </div>
 
+        <div className='content-holder'>
+          <div className='content-type-holder basic-padding'>
+            <div className='meta-data'>
+              <p> 7 types </p>
+            </div>
+
+            <button className='add-content-type'>
+              + New Type
+            </button>
+
+            <button className='content-type'>
+              Company Profile 13
+            </button>
+          </div>
+
+          <div className='selected-content basic-padding'>
+
+          </div>
+        </div>
       </div>
     </div>
   );
