@@ -1,6 +1,25 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Sofia Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root{
+  --light-background: #4c63aa;
+  --mid-background: #38497e;
+  --dark-background: #1a1a1a;
+  --highlight-text: darkblue;
+  --selected-button-text: #f5f5f5;
+  --selected-button: darkblue;
+}
+
+.basic-padding{
+  padding: 10px 20px;
+}
+
+.basic-margin{
+  margin: 10px;
 }
