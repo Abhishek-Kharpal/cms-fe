@@ -18,6 +18,7 @@ body {
   --highlight-button: rgb(0,0,0);
   --title-background: rgb(255,255,255);
   --title-color: rgb(79,79,79);
+  --field-type-color: rgb(122,147,247);
 }
 
 .basic-padding {

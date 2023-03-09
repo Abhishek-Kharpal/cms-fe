@@ -1,4 +1,6 @@
 import './style.css';
+import Field from '../../components/field';
+
 
 const Home = () => {
   return (
@@ -44,6 +46,16 @@ const Home = () => {
           </div>
 
           <div className='selected-content basic-padding'>
+            <div className='profile-title'>
+              <p>Company_Profile</p>
+              <p> 13 fields</p>
+            </div>
+
+            <button className='add-content-type'>
+              Add another field
+            </button>
+
+            <Field/>
 
           </div>
         </div>

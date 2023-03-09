@@ -85,6 +85,8 @@
 .selected-content{
   flex-basis: 80%;
   background-color: var(--light-background);
+  display: flex;
+  flex-direction: column;
 }
 
 .meta-data{
@@ -99,6 +101,7 @@
   color: var(--button-text-1);
   cursor: pointer;
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .content-type{
@@ -109,9 +112,16 @@
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .content-type:hover{
   background-color: var(--selected-button);
   color: var(--selected-button-text);
+}
+
+.selected-content .profile-title{
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--title-color);
 }
