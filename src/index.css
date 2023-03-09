@@ -1,25 +1,25 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Sofia Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root{
+:root {
   --light-background: #4c63aa;
   --mid-background: #38497e;
-  --dark-background: #1a1a1a;
+  --dark-background: rgb(39, 39, 39);
   --highlight-text: darkblue;
   --selected-button-text: #f5f5f5;
   --selected-button: darkblue;
+  --form-text: rgb(119, 119, 119);
 }
 
-.basic-padding{
+.basic-padding {
   padding: 10px 20px;
 }
 
-.basic-margin{
+.basic-margin {
   margin: 10px;
 }
