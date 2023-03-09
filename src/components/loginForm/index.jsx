@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import makeRequest from '../../utils/makeRequest';
+import { LOGIN_USER } from '../../constants/apiEndpoints';
+import { ERROR_ROUTE, HOME_ROUTE } from '../../constants/routes';
 import './style.css';
 
 const LoginForm = () => {
@@ -9,7 +12,19 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data,event) => {
+    event.preventDefault();
+    const token = await makeRequest(LOGIN_USER,{data: data});
+    if(token){
+      localStorage.setItem('token',token);
+      navigate(HOME_ROUTE);
+    }
+    else{
+      navigate(ERROR_ROUTE);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='form'>

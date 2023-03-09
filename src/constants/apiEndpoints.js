@@ -5,3 +5,8 @@ export const REGISTER_USER = {
   url: 'api/register',
   method: 'POST',
 };
+
+export const LOGIN_USER = {
+  url: 'api/login',
+  method: 'POST',
+};
