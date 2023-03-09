@@ -74,6 +74,7 @@
 
 .content-holder{
   display: flex;
+  flex-basis: 100%;
   height: 100vh;
 }
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
+import EntryField from '../../components/entryField';
 import './style.css';
-import Field from '../../components/field';
 
 
 const Home = () => {
@@ -11,13 +11,14 @@ const Home = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [showModal, setShowModal] = useState(false);
-  const handleContentType = () => {
-    setShowModal(true);
-  };
+  const param = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const id = param.name;
+
   const handleCollection = (val) => {
-    navigate(`/dashboard/${val}`);
+    navigate(`/collection/${val}`);
   };
   const onSubmit = (data, event) => {
     event.preventDefault();
@@ -33,15 +34,17 @@ const Home = () => {
         <div className='collection-holder basic-padding'>
           <p>COLLECTION TYPES</p>
           <ul>
-            <li onClick={()=>handleCollection('VAL')}>Collection 1</li>
-            <li>Collection 2</li>
-            <li>Collection 3</li>
-            <li>Collection 4</li>
-            <li>Collection 5</li>
-            {/* if contains more make +n val */}
+            {
+              (id==='VAL')? (
+                <li onClick={()=>handleCollection('VAL')} style={{backgroundColor: 'rgb(0,0,0)'}}>Collection 1</li>
+              )
+              : (
+                <li onClick={()=>handleCollection('VAL')}>Collection 1</li>
+              )
+            }
           </ul>
         </div>
-        <div className='builder-holder basic-padding'>
+        <div className='builder-holder basic-padding' style={{backgroundColor: 'rgb(39, 39, 39)'}}>
           <p>CONTENT TYPE BUILDER</p>
         </div>
       </div>
@@ -51,42 +54,32 @@ const Home = () => {
           <p>Content Types</p>
         </div>
 
-        <div className='content-holder'>
-          <div className='content-type-holder basic-padding'>
-            <div className='meta-data'>
-              <p> 7 types </p>
-            </div>
-
-            <button className='add-content-type' onClick={handleContentType}>
-              + New Type
-            </button>
-
-            <button className='content-type'>
-              Company Profile 13
-            </button>
+        <div className='entry-holder'>
+          <div className='entry-data basic-padding'>
+            <p> 13 Entries found </p>
+            <p className='add-entry' onClick={()=>setShowModal(true)}> Add a new entry </p>
           </div>
 
-          <div className='selected-content basic-padding'>
-            <div className='profile-title'>
-              <p>Company_Profile</p>
-              <p> 13 fields</p>
+          <div className='entry-headers basic-padding'>
+            <div className='entry-top-header'>
+              <p> ID </p>
+              <p> Title </p>
+              <p> Name </p>
+              <p> Author</p>
             </div>
-
-            <button className='add-content-type'>
-              Add another field
-            </button>
-
-            <Field />
-
+            <div>
+              <p>Actions</p>
+            </div>
           </div>
+
+          <EntryField/>
         </div>
       </div>
-
       {
         showModal && (
           <div className='form-container'>
-            <form onSubmit={handleSubmit(onSubmit)} className='content-form'>
-              <p>Name of the content type</p>
+            <form onSubmit={handleSubmit(onSubmit)} className='entry-form'>
+              <p>New Company_Profile</p>
               <input
                 {...register('content', {
                   required: true,
@@ -104,7 +97,6 @@ const Home = () => {
           </div>
         )
       }
-
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { LOGIN_ROUTE, ERROR_ROUTE, REGISTER_ROUTE, HOME_ROUTE } from './constant
 import Login from './pages/login';
 import Register from './pages/register';
 import Home from './pages/home';
+import CollectionDetail from './pages/collectionDetail';
 import PageNotFound from './pages/pageNotFound';
 import Error from './pages/error';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path={LOGIN_ROUTE} element={<Login />} />
           <Route path={REGISTER_ROUTE} element={<Register />} />
           <Route path={HOME_ROUTE} element={<Home />} />
+          <Route path={`${HOME_ROUTE}/:name`} element={<CollectionDetail />} />
           <Route path={`${ERROR_ROUTE}/:errorCode?`} element={<Error />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>

@@ -1,0 +1,113 @@
+.home-container{
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar{
+  flex-basis: 20%;
+  background-color: var(--dark-background);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .title{
+  background-color: var(--sidebar-title);
+  color: var(--selected-button-text);
+  height: 70px;
+}
+
+.sidebar .title p{
+  font-weight: 900;
+  font-size: 35px;
+  margin-top: 10px;
+}
+
+.collection-holder{
+  color: var(--selected-button-text); 
+  font-weight: 900;
+}
+
+.collection-holder ul{
+  padding: 14px;
+}
+
+.collection-holder li{
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.collection-holder li:hover{
+  color: var(--highlight-button);
+}
+
+.builder-holder{
+  color: var(--selected-button-text); 
+  background-color: var(--highlight-button);
+  font-weight: 900;
+}
+
+.builder-holder p{
+  cursor: pointer;
+}
+
+.builder-holder p:hover{
+  color: var(--highlight-button);
+}
+
+.main-container{
+  flex-basis: 80%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-container .title{
+  height: 70px;
+  flex-basis: 100%;
+}
+
+.entry-holder{
+  flex-basis: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.entry-data{
+  display: flex;
+  justify-content: space-between;
+}
+
+.entry-data p{
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.add-entry{
+  color: var(--button-text-1);
+  cursor: pointer;
+}
+
+.entry-top-header{
+  display: flex;
+}
+
+.entry-top-header p{
+  margin-left: 10px;
+}
+
+.entry-headers{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.entry-form{
+  width: 30%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0%;
+  background-color: rgba(255, 255, 255, 1);
+}
