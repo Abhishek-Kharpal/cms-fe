@@ -1,0 +1,45 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+}
+
+.entry-image {
+  flex-basis: 60%;
+}
+
+.entry-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.login-form-container {
+  flex-basis: 40%;
+  background-color: var(--dark-background);
+}
+
+.form-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--selected-button-text);
+  font-weight: 900;
+  font-size: 40px;
+  text-align: center;
+}
+
+.form-header {
+  margin-top: 150px;
+}
+
+.form-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--form-text);
+  font-weight: 900;
+  font-size: 40px;
+  text-align: center;
+}

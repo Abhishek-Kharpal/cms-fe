@@ -1,0 +1,23 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-background);
+  font-size: 20px;
+}
+
+.form button{
+  background: linear-gradient(90deg,  rgba(134,105,246,1) 0%, rgba(134,105,246,1) 100%);
+  padding: 0;
+  border: none;
+  height: 26px;
+  width: 308px;
+  cursor: pointer;
+  color: var(--selected-button-text);
+  margin-top: 5px;
+}
+
+.form .error{
+  color: red;
+}

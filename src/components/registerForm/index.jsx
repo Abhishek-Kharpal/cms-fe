@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const {
     register,
     handleSubmit,
@@ -46,13 +46,13 @@ const LoginForm = () => {
         </p>
       )}
       <button type='submit'>
-        Login
+        Register
       </button>
       <p>
-        Dont have an account? <Link to='/register'>Register</Link>
+        Already have an account? <Link to='/login'>Login</Link>
       </p>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
