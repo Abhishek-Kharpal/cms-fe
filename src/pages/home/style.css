@@ -1,0 +1,56 @@
+.home-container{
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar{
+  flex-basis: 20%;
+  background-color: var(--dark-background);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .title{
+  background-color: var(--sidebar-title);
+  color: var(--selected-button-text);
+  height: 70px;
+}
+
+.sidebar .title p{
+  font-weight: 900;
+  font-size: 35px;
+  margin-top: 10px;
+}
+
+.collection-holder{
+  color: var(--selected-button-text); 
+  font-weight: 900;
+}
+
+.collection-holder ul{
+  padding: 14px;
+}
+
+.collection-holder li{
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.collection-holder li:hover{
+  color: var(--highlight-button);
+}
+
+.builder-holder{
+  color: var(--selected-button-text); 
+  background-color: var(--highlight-button);
+  font-weight: 900;
+}
+
+.builder-holder p{
+  cursor: pointer;
+}
+
+.builder-holder p:hover{
+  color: var(--highlight-button);
+}
