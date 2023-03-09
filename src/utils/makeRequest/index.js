@@ -1,4 +1,3 @@
-import { AUTH_URL } from '../../constants/apiEndpoints';
 import { ERROR_ROUTE } from '../../constants/routes';
 import axios from 'axios';
 
@@ -6,10 +5,11 @@ const makeRequest = async (
   apiEndPoint = { url: ' ', method: ' ' },
   dynamicContent = {},
   navigate,
+  baseURL,
 ) => {
   try {
     const requestBody = {
-      baseURL: AUTH_URL,
+      baseURL: baseURL,
       url: apiEndPoint.url,
       method: apiEndPoint.method,
       ...dynamicContent,

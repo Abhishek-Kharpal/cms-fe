@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import EntryField from '../../components/entryField';
 import './style.css';
-
 
 const Home = () => {
   const {
@@ -34,17 +33,19 @@ const Home = () => {
         <div className='collection-holder basic-padding'>
           <p>COLLECTION TYPES</p>
           <ul>
-            {
-              (id==='VAL')? (
-                <li onClick={()=>handleCollection('VAL')} style={{backgroundColor: 'rgb(0,0,0)'}}>Collection 1</li>
-              )
-              : (
-                <li onClick={()=>handleCollection('VAL')}>Collection 1</li>
-              )
-            }
+            {id === 'VAL' ? (
+              <li onClick={() => handleCollection('VAL')} style={{ backgroundColor: 'rgb(0,0,0)' }}>
+                Collection 1
+              </li>
+            ) : (
+              <li onClick={() => handleCollection('VAL')}>Collection 1</li>
+            )}
           </ul>
         </div>
-        <div className='builder-holder basic-padding' style={{backgroundColor: 'rgb(39, 39, 39)'}}>
+        <div
+          className='builder-holder basic-padding'
+          style={{ backgroundColor: 'rgb(39, 39, 39)' }}
+        >
           <p>CONTENT TYPE BUILDER</p>
         </div>
       </div>
@@ -57,7 +58,10 @@ const Home = () => {
         <div className='entry-holder'>
           <div className='entry-data basic-padding'>
             <p> 13 Entries found </p>
-            <p className='add-entry' onClick={()=>setShowModal(true)}> Add a new entry </p>
+            <p className='add-entry' onClick={() => setShowModal(true)}>
+              {' '}
+              Add a new entry{' '}
+            </p>
           </div>
 
           <div className='entry-headers basic-padding'>
@@ -72,31 +76,33 @@ const Home = () => {
             </div>
           </div>
 
-          <EntryField/>
+          <EntryField />
         </div>
       </div>
-      {
-        showModal && (
-          <div className='form-container'>
-            <form onSubmit={handleSubmit(onSubmit)} className='entry-form'>
-              <p>New Company_Profile</p>
-              <input
-                {...register('content', {
-                  required: true,
-                  maxLength: 200,
-                })}
-                type="text"
-                className='input'
-              />
-              {errors?.content?.type === 'required' && <p className='error'>This field is required</p>}
-              <div className='button-container'>
-                <button onClick={()=>setShowModal(false)}>Cancel</button>
-                <button className='submit-button' type="submit">Create</button>
-              </div>
-            </form>
-          </div>
-        )
-      }
+      {showModal && (
+        <div className='form-container'>
+          <form onSubmit={handleSubmit(onSubmit)} className='entry-form'>
+            <p>New Company_Profile</p>
+            <input
+              {...register('content', {
+                required: true,
+                maxLength: 200,
+              })}
+              type='text'
+              className='input'
+            />
+            {errors?.content?.type === 'required' && (
+              <p className='error'>This field is required</p>
+            )}
+            <div className='button-container'>
+              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <button className='submit-button' type='submit'>
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

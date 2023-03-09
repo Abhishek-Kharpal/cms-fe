@@ -1,9 +1,9 @@
-.home-container{
+.home-container {
   display: flex;
   height: 100vh;
 }
 
-.sidebar{
+.sidebar {
   flex-basis: 20%;
   background-color: var(--dark-background);
   height: 100%;
@@ -11,56 +11,56 @@
   flex-direction: column;
 }
 
-.sidebar .title{
+.sidebar .title {
   background-color: var(--sidebar-title);
   color: var(--selected-button-text);
   height: 70px;
 }
 
-.sidebar .title p{
+.sidebar .title p {
   font-weight: 900;
   font-size: 35px;
   margin-top: 10px;
 }
 
-.collection-holder{
-  color: var(--selected-button-text); 
+.collection-holder {
+  color: var(--selected-button-text);
   font-weight: 900;
 }
 
-.collection-holder ul{
+.collection-holder ul {
   padding: 14px;
 }
 
-.collection-holder li{
+.collection-holder li {
   margin-bottom: 5px;
   cursor: pointer;
 }
 
-.collection-holder li:hover{
+.collection-holder li:hover {
   color: var(--highlight-button);
 }
 
-.builder-holder{
-  color: var(--selected-button-text); 
+.builder-holder {
+  color: var(--selected-button-text);
   background-color: var(--highlight-button);
   font-weight: 900;
 }
 
-.builder-holder p{
+.builder-holder p {
   cursor: pointer;
 }
 
-.builder-holder p:hover{
+.builder-holder p:hover {
   color: var(--highlight-button);
 }
 
-.main-container{
+.main-container {
   flex-basis: 80%;
   height: 100%;
 }
 
-.title{
+.title {
   background-color: var(--title-background);
   color: var(--title-color);
   font-weight: 700;
@@ -68,34 +68,34 @@
   height: 70px;
 }
 
-.title p{
+.title p {
   margin-top: 10px;
 }
 
-.content-holder{
+.content-holder {
   display: flex;
   flex-basis: 100%;
   height: 100vh;
 }
 
-.content-holder .content-type-holder{
+.content-holder .content-type-holder {
   flex-basis: 20%;
   background-color: var(--mid-background);
 }
 
-.selected-content{
+.selected-content {
   flex-basis: 80%;
   background-color: var(--light-background);
   display: flex;
   flex-direction: column;
 }
 
-.meta-data{
+.meta-data {
   display: flex;
 }
 
-.add-content-type{
-  width:100%;
+.add-content-type {
+  width: 100%;
   height: 70px;
   border-radius: 7px;
   border: 1px dashed var(--button-text-1);
@@ -105,8 +105,8 @@
   font-size: 15px;
 }
 
-.content-type{
-  width:100%;
+.content-type {
+  width: 100%;
   height: 70px;
   border-radius: 7px;
   color: var(--form-text);
@@ -116,18 +116,18 @@
   font-size: 15px;
 }
 
-.content-type:hover{
+.content-type:hover {
   background-color: var(--selected-button);
   color: var(--selected-button-text);
 }
 
-.selected-content .profile-title{
+.selected-content .profile-title {
   font-weight: 700;
   font-size: 30px;
   color: var(--title-color);
 }
 
-.form-container{
+.form-container {
   position: fixed;
   z-index: 500;
   box-shadow: 1px 1px 1px black;
@@ -140,7 +140,7 @@
   background: none;
 }
 
-.content-form{
+.content-form {
   width: 50%;
   height: 50%;
   position: fixed;
@@ -153,23 +153,23 @@
   align-items: center;
 }
 
-.content-form input{
+.content-form input {
   width: 80%;
   height: 60px;
   margin-bottom: 10px;
 }
 
-.button-container{
+.button-container {
   display: flex;
 }
 
-.button-container button{
+.button-container button {
   width: 100px;
   height: 50px;
   margin: 10px;
 }
 
-.error{
+.error {
   color: red;
   font-weight: 700;
 }

@@ -18,11 +18,11 @@ const Field = () => {
       </div>
 
       <div className='icon'>
-        <img src={editIcon} alt='edit-icon'/>
+        <img src={editIcon} alt='edit-icon' />
       </div>
 
       <div className='icon'>
-        <img src={deleteIcon} alt='delete-icon'/>
+        <img src={deleteIcon} alt='delete-icon' />
       </div>
     </div>
   );
