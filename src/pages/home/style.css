@@ -125,3 +125,50 @@
   font-size: 30px;
   color: var(--title-color);
 }
+
+.form-container{
+  position: fixed;
+  z-index: 500;
+  box-shadow: 1px 1px 1px black;
+  left: 0%;
+  top: 0%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  padding: 0px;
+  border: none;
+  background: none;
+}
+
+.content-form{
+  width: 50%;
+  height: 50%;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-form input{
+  width: 80%;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.button-container{
+  display: flex;
+}
+
+.button-container button{
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+}
+
+.error{
+  color: red;
+  font-weight: 700;
+}

@@ -1,8 +1,26 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './style.css';
 import Field from '../../components/field';
 
 
 const Home = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const handleContentType = () => {
+    setShowModal(true);
+  };
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    console.log(data);
+    setShowModal(false);
+  };
+
   return (
     <div className='home-container'>
       <div className='sidebar'>
@@ -36,7 +54,7 @@ const Home = () => {
               <p> 7 types </p>
             </div>
 
-            <button className='add-content-type'>
+            <button className='add-content-type' onClick={handleContentType}>
               + New Type
             </button>
 
@@ -55,11 +73,35 @@ const Home = () => {
               Add another field
             </button>
 
-            <Field/>
+            <Field />
 
           </div>
         </div>
       </div>
+
+      {
+        showModal && (
+          <div className='form-container'>
+            <form onSubmit={handleSubmit(onSubmit)} className='content-form'>
+              <p>Name of the content type</p>
+              <input
+                {...register('content', {
+                  required: true,
+                  maxLength: 200,
+                })}
+                type="text"
+                className='input'
+              />
+              {errors?.content?.type === 'required' && <p className='error'>This field is required</p>}
+              <div className='button-container'>
+                <button onClick={()=>setShowModal(false)}>Cancel</button>
+                <button className='submit-button' type="submit">Create</button>
+              </div>
+            </form>
+          </div>
+        )
+      }
+
     </div>
   );
 };
