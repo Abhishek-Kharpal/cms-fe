@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import makeRequest from '../../utils/makeRequest';
+import { REGISTER_USER } from '../../constants/apiEndpoints';
 import './style.css';
 
 const RegisterForm = () => {
@@ -9,7 +11,20 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data,event) => {
+    event.preventDefault();
+    const newUser = await makeRequest(REGISTER_USER,{data: data},navigate);
+    if(newUser)
+    {
+      navigate('/login');
+    }
+    else
+    {
+      navigate('/error');
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='form'>
@@ -40,7 +55,7 @@ const RegisterForm = () => {
       {errors?.password?.type === 'maxLength' && <p className='error'>This field is exceeding 99 characters</p>}
       {errors?.password?.type === 'minLength' && <p className='error'>This field is less than 8 characters</p>}
       {errors?.password?.type === 'pattern' && (
-        <p>
+        <p className='error'>
           Password must be minimum eight characters, at least one letter, one number and one special
           character
         </p>
