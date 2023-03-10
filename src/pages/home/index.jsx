@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import makeRequest from '../../utils/makeRequest';
-import { BACKEND_URL, GET_ALL_COLLECTIONS, CREATE_COLLECTION,GET_ALL_FIELDS, DELETE_FIELD_BY_ID, CREATE_FIELD } from '../../constants/apiEndpoints';
+import { BACKEND_URL, GET_ALL_COLLECTIONS, CREATE_COLLECTION,GET_ALL_FIELDS, DELETE_FIELD_BY_ID, CREATE_FIELD, EDIT_FIELD_BY_ID } from '../../constants/apiEndpoints';
 import './style.css';
 import Field from '../../components/field';
 
@@ -18,7 +18,9 @@ const Home = () => {
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [fields, setFields] = useState([]);
   const [selectedFields, setSelectedFields] = useState([]);
-
+  const [editableFields, setEditableFields] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editID, setEditID] = useState(null);
   const handleMount = async () => {
     await makeRequest(GET_ALL_COLLECTIONS,{},navigate,BACKEND_URL)
       .then((res) => {
@@ -43,6 +45,31 @@ const Home = () => {
     navigate(`/dashboard/${val}`);
   };
 
+  const onEdit = async (data, event) => {
+    event.preventDefault();
+    const res = await makeRequest(EDIT_FIELD_BY_ID(editID),{
+      data: {
+        name: data.name,
+        type: 'TEXT',
+        collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
+      }
+    },navigate,BACKEND_URL);
+    if(res){
+      const newFields = fields.map((item) => {
+        if(item.id === res.id){
+          return res;
+        }
+        return item;
+      });
+      setFields(newFields);
+      const selectedCollectionsData = collections.filter((item) => item.name === selectedCollection);
+      setSelectedFields(newFields.filter((item) => item.collectionId === selectedCollectionsData[0].id));
+    }
+    setEditableFields(editableFields.filter((item) => item.id !== editID));
+    setShowEditModal(false);
+    setEditID(null);
+  };
+
   const handleDeleteField = async (id) => {
     await makeRequest(DELETE_FIELD_BY_ID(id),{},navigate,BACKEND_URL);
     const newFields = fields.filter((item) => item.id !== id);
@@ -52,7 +79,7 @@ const Home = () => {
   };
   
   const handleAddField = async () => {
-    await makeRequest(CREATE_FIELD,{
+    const response = await makeRequest(CREATE_FIELD,{
       data: {
         name: 'New Field',
         type: 'TEXT',
@@ -60,17 +87,11 @@ const Home = () => {
       }
     },navigate,BACKEND_URL);
 
-    setFields([...fields,{
-      name: 'New Field',
-      type: 'TEXT',
-      collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
-    }]);
+    setFields([...fields,response]);
 
-    setSelectedFields([...selectedFields,{
-      name: 'New Field',
-      type: 'TEXT',
-      collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
-    }]);
+    setSelectedFields([...selectedFields,response]);
+
+    setEditableFields([...editableFields,response]);
   };
 
   const handleSelectedFields = (collectionName) => {
@@ -89,6 +110,17 @@ const Home = () => {
       setCollections([...collections,res]);
     }
     setShowModal(false);
+  };
+
+  const handleEditModal = (id) => {
+    const editable = editableFields.filter((item) => item.id === id);
+    if(editable.length === 0){
+      alert('Cant edit the field');
+    }
+    else{
+      setShowEditModal(true);
+      setEditID(id);
+    }
   };
 
   return (collections)?(
@@ -155,10 +187,9 @@ const Home = () => {
 
                 {
                   selectedFields.map((item) => (
-                    <Field key={item.id} fieldName={item.name} fieldType={item.type} handleDeleteField={handleDeleteField} fieldID={item.id}/>
+                    <Field key={item.id} fieldName={item.name} fieldType={item.type} handleDeleteField={handleDeleteField} fieldID={item.id} handleEditModal={handleEditModal}/>
                   ))
                 }
-
               </div>
             ):(
               <div className='selected-content basic-padding'>
@@ -195,6 +226,58 @@ const Home = () => {
           </form>
         </div>
       )}
+
+      {showModal && (
+        <div className='form-container'>
+          <form onSubmit={handleSubmit(onSubmit)} className='content-form'>
+            <p>Name of the content type</p>
+            <input
+              {...register('name', {
+                required: true,
+                maxLength: 200,
+              })}
+              type='text'
+              className='input'
+            />
+            {errors?.name?.type === 'required' && (
+              <p className='error'>This field is required</p>
+            )}
+            <div className='button-container'>
+              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <button className='submit-button' type='submit'>
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {
+        showEditModal && (
+          <div className='form-container'>
+            <form onSubmit={handleSubmit(onEdit)} className='content-form'>
+              <p>Edit name of the content</p>
+              <input
+                {...register('name', {
+                  required: true,
+                  maxLength: 200,
+                })}
+                type='text'
+                className='input'
+              />
+              {errors?.name?.type === 'required' && (
+                <p className='error'>This field is required</p>
+              )}
+              <div className='button-container'>
+                <button onClick={() => setShowModal(false)}>Cancel</button>
+                <button className='submit-button' type='submit'>
+                  Edit
+                </button>
+              </div>
+            </form>
+          </div>)
+      }
+      
     </div>
   ):(
     <div>

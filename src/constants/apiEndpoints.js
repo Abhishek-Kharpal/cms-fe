@@ -37,3 +37,10 @@ export const CREATE_FIELD = {
   url: 'api/fields',
   method: 'POST',
 };
+
+export const EDIT_FIELD_BY_ID = (id)=>{
+  return {
+    url: `api/fields/${id}`,
+    method: 'PUT',
+  }
+};
