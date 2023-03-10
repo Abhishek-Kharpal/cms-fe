@@ -19,11 +19,11 @@ const Field = ({ fieldName, fieldType, handleDeleteField, fieldID, handleEditMod
       </div>
 
       <div className='icon'>
-        <img src={editIcon} alt='edit-icon' onClick={() => handleEditModal(fieldID)} />
+        <img src={editIcon} alt='edit-icon' onClick={() => handleEditModal(fieldID)} style={{height:'20px'}}/>
       </div>
 
       <div className='icon'>
-        <img src={deleteIcon} alt='delete-icon' onClick={() => handleDeleteField(fieldID)} />
+        <img src={deleteIcon} alt='delete-icon' onClick={() => handleDeleteField(fieldID)} style={{height:'20px'}}/>
       </div>
     </div>
   );
