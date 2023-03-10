@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render successfully 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="login-page"
+    >
+      <div
+        class="entry-image"
+      >
+        <img
+          alt="entry-image"
+          src="entry-image.png"
+        />
+      </div>
+      <div
+        class="login-form-container"
+      >
+        <div
+          class="form-header"
+        >
+          <div>
+            Login to your CMS+ account
+          </div>
+        </div>
+        <div
+          class="form-container-1"
+        >
+          <form
+            class="form"
+          >
+            <p
+              style="margin: 0px;"
+            >
+              Email
+            </p>
+            <input
+              name="email"
+              style="margin-bottom: 10px; margin-top: 5px; height: 20px; width: 300px;"
+            />
+            <p
+              style="margin: 0px;"
+            >
+              Password
+            </p>
+            <input
+              name="password"
+              style="margin-bottom: 10px; margin-top: 5px; height: 20px; width: 300px;"
+              type="password"
+            />
+            <button
+              type="submit"
+            >
+              Login
+            </button>
+            <p>
+              Dont have an account? 
+              <a
+                href="/register"
+              >
+                Register
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

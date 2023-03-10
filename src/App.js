@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LOGIN_ROUTE, ERROR_ROUTE, REGISTER_ROUTE, HOME_ROUTE } from './constants/routes';
+import { LOGIN_ROUTE, ERROR_ROUTE, REGISTER_ROUTE, HOME_ROUTE,DEFAULT_ROUTE } from './constants/routes';
 import Login from './pages/login';
 import Register from './pages/register';
 import Home from './pages/home';
@@ -13,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route path={DEFAULT_ROUTE} element={<Login />} />
           <Route path={REGISTER_ROUTE} element={<Register />} />
           <Route path={HOME_ROUTE} element={<Home />} />
           <Route path={`${HOME_ROUTE}/:name`} element={<CollectionDetail />} />
