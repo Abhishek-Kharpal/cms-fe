@@ -44,3 +44,8 @@ export const EDIT_FIELD_BY_ID = (id)=>{
     method: 'PUT',
   }
 };
+
+export const GET_ALL_ENTRIES = {
+  url: 'api/entry',
+  method: 'GET',
+};
