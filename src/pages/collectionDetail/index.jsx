@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import makeRequest from '../../utils/makeRequest';
-import { BACKEND_URL, GET_ALL_COLLECTIONS, GET_ALL_FIELDS, GET_ALL_ENTRIES } from '../../constants/apiEndpoints';
+import { BACKEND_URL, GET_ALL_COLLECTIONS, GET_ALL_FIELDS, GET_ALL_ENTRIES, CREATE_ENTRY } from '../../constants/apiEndpoints';
 import EntryField from '../../components/entryField';
 import './style.css';
 
@@ -20,7 +20,7 @@ const Home = () => {
   const [selectedEntries, setSelectedEntries] = useState([]);
   const handleMount = async () => {
     const collectionsData = await makeRequest(GET_ALL_COLLECTIONS,{},navigate,BACKEND_URL);
-    
+
     const fieldsData = await makeRequest(GET_ALL_FIELDS,{},navigate,BACKEND_URL)
     
     const entriesData = await makeRequest(GET_ALL_ENTRIES,{},navigate,BACKEND_URL)
@@ -35,15 +35,21 @@ const Home = () => {
 
   useEffect(() => {
     handleMount();
-  },[]);
+  },[param]);
 
   const id = param.name;
 
   const handleCollection = (val) => {
     navigate(`/dashboard/${val}`);
   };
-  const onSubmit = (data, event) => {
+  const onSubmit = async (data, event) => {
     event.preventDefault();
+    const entryData = {
+      collectionId: collections.filter((item) => item.name === id)[0].id,
+      entryValues: data,
+    };
+    const response = await makeRequest(CREATE_ENTRY,{ data: entryData },navigate,BACKEND_URL);
+    setSelectedEntries([...selectedEntries,response]);
     setShowModal(false);
   };
 
@@ -106,22 +112,23 @@ const Home = () => {
         </div>
       </div>
       {showModal && (
-        <div className='form-container'>
+        <div className='form-container' style={{fontSize: '25px'}}>
           <form onSubmit={handleSubmit(onSubmit)} className='entry-form'>
-            <p>New Company_Profile</p>
-            <input
-              {...register('content', {
-                required: true,
-                maxLength: 200,
-              })}
-              type='text'
-              className='input'
-            />
-            {errors?.content?.type === 'required' && (
-              <p className='error'>This field is required</p>
-            )}
-            <div className='button-container'>
-              <button onClick={() => setShowModal(false)}>Cancel</button>
+            <p>New {id}</p>
+            {
+              selectedFields.map((item)=>(
+                <div key={item.id}>
+                  <p style={{marginBottom: '5px'}}>{item.name}</p>
+                  <input {...register(item.name,{
+                    required:true,
+                  })} />
+                  {errors[item.name] && <p className='error' style={{fontSize: '20px'}}>This field is required</p>}
+                </div>
+              ))
+            }
+            
+            <div className='button-container-1'>
+              <button onClick={() => setShowModal(false)} style={{background: 'none', color: 'rgb(79,79,79'}}>Cancel</button>
               <button className='submit-button' type='submit'>
                 Create
               </button>

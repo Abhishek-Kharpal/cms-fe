@@ -49,3 +49,8 @@ export const GET_ALL_ENTRIES = {
   url: 'api/entry',
   method: 'GET',
 };
+
+export const CREATE_ENTRY = {
+  url: 'api/entry',
+  method: 'POST',
+};

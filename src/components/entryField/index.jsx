@@ -4,10 +4,11 @@ import deleteIcon from '../../assets/delete-icon/delete-icon.png';
 import './style.css';
 
 const EntryField = ({entry,selectedFields}) => {
+  console.log(entry);
   return (
     <div
       className='entry-headers basic-padding'
-      style={{ backgroundColor: '#f5f5f5', borderRadius: '5px' }}
+      style={{ backgroundColor: '#f5f5f5', borderRadius: '5px',marginBottom: '5px' }}
     >
       <div className='entry-top-header'>
         {
@@ -15,8 +16,8 @@ const EntryField = ({entry,selectedFields}) => {
         }
       </div>
       <div>
-        <img src={editIcon} alt='edit' height={'20px'} style={{marginRight:'5px',marginTop: '15px'}}/>
-        <img src={deleteIcon} alt='delete' height={'20px'}/>
+        <img src={editIcon} alt='edit' height={'20px'} style={{marginRight:'5px',marginTop: '15px', cursor: 'pointer'}}/>
+        <img src={deleteIcon} alt='delete' height={'20px'} style={{marginRight:'5px',marginTop: '15px', cursor: 'pointer'}}/>
       </div>
     </div>
   );
