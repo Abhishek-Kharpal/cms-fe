@@ -1,8 +1,9 @@
 import './style.css';
 import editIcon from '../../assets/edit-icon/edit-icon.png';
 import deleteIcon from '../../assets/delete-icon/delete-icon.png';
+import PropTypes from 'prop-types';
 
-const Field = () => {
+const Field = ({fieldName,fieldType}) => {
   return (
     <div className='field'>
       <div className='field-title'>
@@ -10,11 +11,11 @@ const Field = () => {
       </div>
 
       <div className='field-name'>
-        <p>Name</p>
+        <p>{fieldName}</p>
       </div>
 
       <div className='field-type'>
-        <p>Text</p>
+        <p>{fieldType}</p>
       </div>
 
       <div className='icon'>
@@ -26,6 +27,11 @@ const Field = () => {
       </div>
     </div>
   );
+};
+
+Field.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  fieldType: PropTypes.string.isRequired,
 };
 
 export default Field;

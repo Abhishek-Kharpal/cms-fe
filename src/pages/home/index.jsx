@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import makeRequest from '../../utils/makeRequest';
+import { BACKEND_URL, GET_ALL_COLLECTIONS, CREATE_COLLECTION,GET_ALL_FIELDS } from '../../constants/apiEndpoints';
 import './style.css';
 import Field from '../../components/field';
 
@@ -10,20 +12,56 @@ const Home = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [collections, setCollections] = useState([]);
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [fields, setFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState([]);
+
+  const handleMount = async () => {
+    await makeRequest(GET_ALL_COLLECTIONS,{},navigate,BACKEND_URL)
+      .then((res) => {
+        setCollections(res);
+      });
+
+    await makeRequest(GET_ALL_FIELDS,{},navigate,BACKEND_URL)
+      .then((res) => {
+        setFields(res);
+      });
+  };
+
+  useEffect(() => {
+    handleMount();
+  },[]);
+
   const handleContentType = () => {
     setShowModal(true);
   };
-  const navigate = useNavigate();
+  
   const handleCollection = (val) => {
     navigate(`/dashboard/${val}`);
   };
-  const onSubmit = (data, event) => {
+  
+  const handleSelectedFields = (collectionName) => {
+    const selectedCollectionsData = collections.filter((item) => item.name === collectionName);
+    const selectedFieldsData = fields.filter((item) => item.collectionId === selectedCollectionsData[0].id);
+    setSelectedFields(selectedFieldsData);
+    setSelectedCollection(collectionName);
+  };
+
+  const onSubmit = async (data, event) => {
     event.preventDefault();
+    const res = await makeRequest(CREATE_COLLECTION,{
+      data: data
+    },navigate,BACKEND_URL);
+    if(res){
+      setCollections([...collections,res]);
+    }
     setShowModal(false);
   };
 
-  return (
+  return (collections)?(
     <div className='home-container'>
       <div className='sidebar'>
         <div className='title basic-padding'>
@@ -32,11 +70,14 @@ const Home = () => {
         <div className='collection-holder basic-padding'>
           <p>COLLECTION TYPES</p>
           <ul>
-            <li onClick={() => handleCollection('VAL')}>Collection 1</li>
-            <li>Collection 2</li>
-            <li>Collection 3</li>
-            <li>Collection 4</li>
-            <li>Collection 5</li>
+            {collections.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => handleCollection(item.name)}
+              >
+                {item.name}
+              </li>
+            ))}
             {/* if contains more make +n val */}
           </ul>
         </div>
@@ -53,26 +94,50 @@ const Home = () => {
         <div className='content-holder'>
           <div className='content-type-holder basic-padding'>
             <div className='meta-data'>
-              <p> 7 types </p>
+              <p> {collections.length} types </p>
             </div>
 
             <button className='add-content-type' onClick={handleContentType}>
               + New Type
             </button>
 
-            <button className='content-type'>Company Profile 13</button>
+            {
+              collections.map((item) => (
+                <button className='content-type' 
+                        key={item.id} 
+                        onClick={()=>handleSelectedFields(item.name)}
+                        style={(selectedCollection===item.name)?{backgroundColor: 'rgb(79, 33, 198)',color: '#f5f5f5'}:{}} >
+                  {item.name}
+                </button>
+              ))
+            }
           </div>
+          
+          {
+            (selectedCollection)?(
+              <div className='selected-content basic-padding'>
+                <div className='profile-title'>
+                  <p>{selectedCollection}</p>
+                  <p> {selectedFields.length} fields</p>
+                </div>
 
-          <div className='selected-content basic-padding'>
-            <div className='profile-title'>
-              <p>Company_Profile</p>
-              <p> 13 fields</p>
-            </div>
+                <button className='add-content-type'>Add another field</button>
 
-            <button className='add-content-type'>Add another field</button>
+                {
+                  selectedFields.map((item) => (
+                    <Field key={item.id} fieldName={item.name} fieldType={item.type} />
+                  ))
+                }
 
-            <Field />
-          </div>
+              </div>
+            ):(
+              <div className='selected-content basic-padding'>
+                <p>Please Select a content type</p>
+              </div>
+            )
+              
+          }
+          
         </div>
       </div>
 
@@ -81,7 +146,7 @@ const Home = () => {
           <form onSubmit={handleSubmit(onSubmit)} className='content-form'>
             <p>Name of the content type</p>
             <input
-              {...register('content', {
+              {...register('name', {
                 required: true,
                 maxLength: 200,
               })}
@@ -100,6 +165,10 @@ const Home = () => {
           </form>
         </div>
       )}
+    </div>
+  ):(
+    <div>
+      <p>Loading...</p>
     </div>
   );
 };

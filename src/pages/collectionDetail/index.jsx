@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import makeRequest from '../../utils/makeRequest';
+import { BACKEND_URL, GET_ALL_COLLECTIONS } from '../../constants/apiEndpoints';
 import EntryField from '../../components/entryField';
 import './style.css';
 
@@ -13,18 +15,29 @@ const Home = () => {
   const param = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [collections, setCollections] = useState([]);
+  const handleMount = async () => {
+    await makeRequest(GET_ALL_COLLECTIONS,{},navigate,BACKEND_URL)
+      .then((res) => {
+        setCollections(res);
+      });
+  };
+
+  useEffect(() => {
+    handleMount();
+  },[]);
 
   const id = param.name;
 
   const handleCollection = (val) => {
-    navigate(`/collection/${val}`);
+    navigate(`/dashboard/${val}`);
   };
   const onSubmit = (data, event) => {
     event.preventDefault();
     setShowModal(false);
   };
 
-  return (
+  return collections?(
     <div className='home-container'>
       <div className='sidebar'>
         <div className='title basic-padding'>
@@ -33,18 +46,21 @@ const Home = () => {
         <div className='collection-holder basic-padding'>
           <p>COLLECTION TYPES</p>
           <ul>
-            {id === 'VAL' ? (
-              <li onClick={() => handleCollection('VAL')} style={{ backgroundColor: 'rgb(0,0,0)' }}>
-                Collection 1
+            {collections.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => handleCollection(item.name)}
+                style={{ backgroundColor: id === item.name && 'rgb(0,0,0)' }}
+              >
+                {item.name}
               </li>
-            ) : (
-              <li onClick={() => handleCollection('VAL')}>Collection 1</li>
-            )}
+            ))}
           </ul>
         </div>
         <div
           className='builder-holder basic-padding'
           style={{ backgroundColor: 'rgb(39, 39, 39)' }}
+          onClick={()=>navigate('/dashboard')}
         >
           <p>CONTENT TYPE BUILDER</p>
         </div>
@@ -103,6 +119,10 @@ const Home = () => {
           </form>
         </div>
       )}
+    </div>
+  ):(
+    <div>
+      <p>Loading</p>
     </div>
   );
 };
