@@ -24,13 +24,13 @@ export const CREATE_COLLECTION = {
 export const GET_ALL_FIELDS = {
   url: 'api/fields',
   method: 'GET',
-}
+};
 
-export const DELETE_FIELD_BY_ID = (id)=>{
+export const DELETE_FIELD_BY_ID = (id) => {
   return {
     url: `api/fields/${id}`,
     method: 'DELETE',
-  }
+  };
 };
 
 export const CREATE_FIELD = {
@@ -38,11 +38,11 @@ export const CREATE_FIELD = {
   method: 'POST',
 };
 
-export const EDIT_FIELD_BY_ID = (id)=>{
+export const EDIT_FIELD_BY_ID = (id) => {
   return {
     url: `api/fields/${id}`,
     method: 'PUT',
-  }
+  };
 };
 
 export const GET_ALL_ENTRIES = {
@@ -53,4 +53,11 @@ export const GET_ALL_ENTRIES = {
 export const CREATE_ENTRY = {
   url: 'api/entry',
   method: 'POST',
+};
+
+export const DELETE_ENTRY_BY_ID = (id) => {
+  return {
+    url: `api/entry/${id}`,
+    method: 'DELETE',
+  };
 };

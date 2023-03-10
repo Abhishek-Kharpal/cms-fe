@@ -113,7 +113,7 @@
   overflow-y: scroll;
 }
 
-.button-container-1{
+.button-container-1 {
   display: flex;
   position: fixed;
   bottom: 0;

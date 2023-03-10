@@ -3,7 +3,7 @@ import editIcon from '../../assets/edit-icon/edit-icon.png';
 import deleteIcon from '../../assets/delete-icon/delete-icon.png';
 import PropTypes from 'prop-types';
 
-const Field = ({fieldName,fieldType,handleDeleteField,fieldID,handleEditModal}) => {
+const Field = ({ fieldName, fieldType, handleDeleteField, fieldID, handleEditModal }) => {
   return (
     <div className='field'>
       <div className='field-title'>
@@ -19,11 +19,11 @@ const Field = ({fieldName,fieldType,handleDeleteField,fieldID,handleEditModal}) 
       </div>
 
       <div className='icon'>
-        <img src={editIcon} alt='edit-icon' onClick = {()=>handleEditModal(fieldID)} />
+        <img src={editIcon} alt='edit-icon' onClick={() => handleEditModal(fieldID)} />
       </div>
 
       <div className='icon'>
-        <img src={deleteIcon} alt='delete-icon' onClick={()=>handleDeleteField(fieldID)} />
+        <img src={deleteIcon} alt='delete-icon' onClick={() => handleDeleteField(fieldID)} />
       </div>
     </div>
   );
