@@ -4,6 +4,7 @@
   height: 60px;
   color: var(--form-text);
   background-color: var(--selected-button-text);
+  margin-bottom: 5px;
 }
 
 .field-title {

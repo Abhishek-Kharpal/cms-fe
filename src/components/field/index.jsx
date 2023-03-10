@@ -3,7 +3,7 @@ import editIcon from '../../assets/edit-icon/edit-icon.png';
 import deleteIcon from '../../assets/delete-icon/delete-icon.png';
 import PropTypes from 'prop-types';
 
-const Field = ({fieldName,fieldType}) => {
+const Field = ({fieldName,fieldType,handleDeleteField,fieldID}) => {
   return (
     <div className='field'>
       <div className='field-title'>
@@ -23,7 +23,7 @@ const Field = ({fieldName,fieldType}) => {
       </div>
 
       <div className='icon'>
-        <img src={deleteIcon} alt='delete-icon' />
+        <img src={deleteIcon} alt='delete-icon' onClick={()=>handleDeleteField(fieldID)} />
       </div>
     </div>
   );
@@ -32,6 +32,8 @@ const Field = ({fieldName,fieldType}) => {
 Field.propTypes = {
   fieldName: PropTypes.string.isRequired,
   fieldType: PropTypes.string.isRequired,
+  handleDeleteField: PropTypes.func.isRequired,
+  fieldID: PropTypes.string.isRequired,
 };
 
 export default Field;

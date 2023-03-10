@@ -25,3 +25,15 @@ export const GET_ALL_FIELDS = {
   url: 'api/fields',
   method: 'GET',
 }
+
+export const DELETE_FIELD_BY_ID = (id)=>{
+  return {
+    url: `api/fields/${id}`,
+    method: 'DELETE',
+  }
+};
+
+export const CREATE_FIELD = {
+  url: 'api/fields',
+  method: 'POST',
+};

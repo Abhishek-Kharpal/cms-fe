@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import makeRequest from '../../utils/makeRequest';
-import { BACKEND_URL, GET_ALL_COLLECTIONS, CREATE_COLLECTION,GET_ALL_FIELDS } from '../../constants/apiEndpoints';
+import { BACKEND_URL, GET_ALL_COLLECTIONS, CREATE_COLLECTION,GET_ALL_FIELDS, DELETE_FIELD_BY_ID, CREATE_FIELD } from '../../constants/apiEndpoints';
 import './style.css';
 import Field from '../../components/field';
 
@@ -42,7 +42,37 @@ const Home = () => {
   const handleCollection = (val) => {
     navigate(`/dashboard/${val}`);
   };
+
+  const handleDeleteField = async (id) => {
+    await makeRequest(DELETE_FIELD_BY_ID(id),{},navigate,BACKEND_URL);
+    const newFields = fields.filter((item) => item.id !== id);
+    setFields(newFields);
+    const selectedCollectionsData = collections.filter((item) => item.name === selectedCollection);
+    setSelectedFields(newFields.filter((item) => item.collectionId === selectedCollectionsData[0].id));
+  };
   
+  const handleAddField = async () => {
+    await makeRequest(CREATE_FIELD,{
+      data: {
+        name: 'New Field',
+        type: 'TEXT',
+        collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
+      }
+    },navigate,BACKEND_URL);
+
+    setFields([...fields,{
+      name: 'New Field',
+      type: 'TEXT',
+      collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
+    }]);
+
+    setSelectedFields([...selectedFields,{
+      name: 'New Field',
+      type: 'TEXT',
+      collectionId: collections.filter((item) => item.name === selectedCollection)[0].id
+    }]);
+  };
+
   const handleSelectedFields = (collectionName) => {
     const selectedCollectionsData = collections.filter((item) => item.name === collectionName);
     const selectedFieldsData = fields.filter((item) => item.collectionId === selectedCollectionsData[0].id);
@@ -121,11 +151,11 @@ const Home = () => {
                   <p> {selectedFields.length} fields</p>
                 </div>
 
-                <button className='add-content-type'>Add another field</button>
+                <button className='add-content-type' onClick={handleAddField}>Add another field</button>
 
                 {
                   selectedFields.map((item) => (
-                    <Field key={item.id} fieldName={item.name} fieldType={item.type} />
+                    <Field key={item.id} fieldName={item.name} fieldType={item.type} handleDeleteField={handleDeleteField} fieldID={item.id}/>
                   ))
                 }
 
