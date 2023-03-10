@@ -12,7 +12,7 @@ const Register = () => {
         <div className='form-header'>
           <div>Register your CMS+ account</div>
         </div>
-        <div className='form-container'>
+        <div className='form-container-1'>
           <RegisterForm />
         </div>
       </div>
