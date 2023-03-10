@@ -1,4 +1,5 @@
 import { ERROR_ROUTE } from '../../constants/routes';
+import { BACKEND_URL } from '../../constants/apiEndpoints';
 import axios from 'axios';
 
 const makeRequest = async (
@@ -8,20 +9,32 @@ const makeRequest = async (
   baseURL,
 ) => {
   try {
-    const requestBody = {
+    const requestBody = (baseURL!==BACKEND_URL)?{
       baseURL: baseURL,
       url: apiEndPoint.url,
       method: apiEndPoint.method,
       ...dynamicContent,
-    };
+    }:{
+      baseURL: baseURL,
+      url: apiEndPoint.url,
+      method: apiEndPoint.method,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      ...dynamicContent,
+    }
     const { data } = await axios(requestBody);
     return data;
   } catch (e) {
     if (navigate) {
       const errorStatus = e.error;
-      if (errorStatus) {
+      if((baseURL===BACKEND_URL)&&(localStorage.getItem('token')===null)){
+        navigate('/login');
+      }
+      else if (errorStatus) {
         navigate(`${ERROR_ROUTE}/${errorStatus}`);
-      } else {
+      } 
+      else {
         navigate(ERROR_ROUTE);
       }
     }
