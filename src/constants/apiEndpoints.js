@@ -61,3 +61,10 @@ export const DELETE_ENTRY_BY_ID = (id) => {
     method: 'DELETE',
   };
 };
+
+export const EDIT_ENTRY_BY_ID = (id) => {
+  return {
+    url: `api/entry/${id}`,
+    method: 'PUT',
+  };
+};

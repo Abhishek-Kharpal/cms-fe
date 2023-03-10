@@ -9,6 +9,7 @@ import {
   GET_ALL_ENTRIES,
   CREATE_ENTRY,
   DELETE_ENTRY_BY_ID,
+  EDIT_ENTRY_BY_ID,
 } from '../../constants/apiEndpoints';
 import EntryField from '../../components/entryField';
 import './style.css';
@@ -25,6 +26,9 @@ const Home = () => {
   const [collections, setCollections] = useState([]);
   const [selectedFields, setSelectedFields] = useState([]);
   const [selectedEntries, setSelectedEntries] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editID, setEditID] = useState(null);
+
   const handleMount = async () => {
     const collectionsData = await makeRequest(GET_ALL_COLLECTIONS, {}, navigate, BACKEND_URL);
 
@@ -64,6 +68,29 @@ const Home = () => {
     await makeRequest(DELETE_ENTRY_BY_ID(id), {}, navigate, BACKEND_URL);
     const newEntries = selectedEntries.filter((item) => item.id !== id);
     setSelectedEntries(newEntries);
+  };
+
+  const handleShowEditModal = (id) => {
+    setEditID(id);
+    setShowEditModal(true);
+  };
+
+  const onEdit = async (data, event) => {
+    event.preventDefault();
+    const entryData = {
+      collectionId: collections.filter((item) => item.name === id)[0].id,
+      entryValues: data,
+    };
+    const response = await makeRequest(EDIT_ENTRY_BY_ID(editID), { data: entryData }, navigate, BACKEND_URL);
+    const newEntries = selectedEntries.map((item) => {
+      if (item.id === response.id) {
+        return response;
+      }
+      return item;
+    });
+    setSelectedEntries(newEntries);
+    setShowEditModal(false);
+    setEditID(null);
   };
   return collections ? (
     <div className='home-container'>
@@ -117,7 +144,7 @@ const Home = () => {
             </div>
           </div>
           {selectedEntries.map((item) => (
-            <EntryField key={item.id} entry={item.entryValues} id={item.id} selectedFields={selectedFields} handleDelete={handleEntryDelete} />
+            <EntryField key={item.id} entry={item.entryValues} id={item.id} selectedFields={selectedFields} handleDelete={handleEntryDelete} handleShowEditModal={handleShowEditModal}/>
           ))}
         </div>
       </div>
@@ -155,6 +182,44 @@ const Home = () => {
           </form>
         </div>
       )}
+
+      {
+        (showEditModal) && (
+          <div className='form-container' style={{ fontSize: '25px' }}>
+          <form onSubmit={handleSubmit(onEdit)} className='entry-form'>
+            <p>New {id}</p>
+            {selectedFields.map((item) => (
+              <div key={item.id}>
+                <p style={{ marginBottom: '5px' }}>{item.name}</p>
+                <input
+                  {...register(item.name, {
+                    required: true,
+                  })}
+                  defaultValue={selectedEntries.filter((entry)=> entry.collectionId === item.collectionId)[0].entryValues[item.name]}
+                />
+                {errors[item.name] && (
+                  <p className='error' style={{ fontSize: '20px' }}>
+                    This field is required
+                  </p>
+                )}
+              </div>
+            ))}
+
+            <div className='button-container-1'>
+              <button
+                onClick={() => setShowEditModal(false)}
+                style={{ background: 'none', color: 'rgb(79,79,79' }}
+              >
+                Cancel
+              </button>
+              <button className='submit-button' type='submit'>
+                Edit
+              </button>
+            </div>
+          </form>
+        </div>
+        )
+      }
     </div>
   ) : (
     <div>

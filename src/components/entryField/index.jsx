@@ -3,7 +3,7 @@ import editIcon from '../../assets/edit-icon/edit-icon.png';
 import deleteIcon from '../../assets/delete-icon/delete-icon.png';
 import './style.css';
 
-const EntryField = ({ entry, selectedFields,handleDelete,id }) => {
+const EntryField = ({ entry, selectedFields,handleDelete,id,handleShowEditModal }) => {
   return (
     <div
       className='entry-headers basic-padding'
@@ -18,6 +18,7 @@ const EntryField = ({ entry, selectedFields,handleDelete,id }) => {
           alt='edit'
           height={'20px'}
           style={{ marginRight: '5px', marginTop: '15px', cursor: 'pointer' }}
+          onClick={()=>handleShowEditModal(id)}
         />
         <img
           src={deleteIcon}
@@ -37,5 +38,6 @@ EntryField.propTypes = {
   entry: PropTypes.object,
   selectedFields: PropTypes.array,
   handleDelete: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
+  handleShowEditModal: PropTypes.func,
 };
