@@ -165,7 +165,6 @@ const Home = () => {
                 {item.name}
               </li>
             ))}
-            {/* if contains more make +n val */}
           </ul>
         </div>
         <div className='builder-holder basic-padding'>
@@ -250,31 +249,8 @@ const Home = () => {
               <p className='error'>This field is required</p>
             )}
             <div className='button-container'>
-              <button onClick={() => setShowModal(false)}>Cancel</button>
-              <button className='submit-button' type='submit'>
-                Create
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {showModal && (
-        <div className='form-container'>
-          <form onSubmit={handleSubmit(onSubmit)} className='content-form'>
-            <p>Name of the content type</p>
-            <input
-              {...register('name', {
-                required: true,
-                maxLength: 200,
-              })}
-              type='text'
-              className='input'
-            />
-            {errors?.name?.type === 'required' && <p className='error'>This field is required</p>}
-            <div className='button-container'>
-              <button onClick={() => setShowModal(false)}>Cancel</button>
-              <button className='submit-button' type='submit'>
+              <button onClick={() => setShowModal(false)} style={{background: 'none',border: 'none'}}>Cancel</button>
+              <button className='submit-button' type='submit' style={{background: 'rgb(77,64,206)',color: '#f5f5f5'}}>
                 Create
               </button>
             </div>

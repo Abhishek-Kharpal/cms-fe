@@ -75,6 +75,11 @@ const Home = () => {
     setShowEditModal(true);
   };
 
+  const handleCloseShowEditModal = () => {
+    setShowEditModal(false);
+    setEditID(null);
+  };
+
   const onEdit = async (data, event) => {
     event.preventDefault();
     const entryData = {
@@ -149,7 +154,7 @@ const Home = () => {
         </div>
       </div>
       {showModal && (
-        <div className='form-container' style={{ fontSize: '25px' }}>
+        <div className='form-container-entry basic-padding'>
           <form onSubmit={handleSubmit(onSubmit)} className='entry-form'>
             <p>New {id}</p>
             {selectedFields.map((item) => (
@@ -159,6 +164,7 @@ const Home = () => {
                   {...register(item.name, {
                     required: true,
                   })}
+                  style={{width: '100%', height: '20px'}}
                 />
                 {errors[item.name] && (
                   <p className='error' style={{ fontSize: '20px' }}>
@@ -171,12 +177,12 @@ const Home = () => {
             <div className='button-container-1'>
               <button
                 onClick={() => setShowModal(false)}
-                style={{ background: 'none', color: 'rgb(79,79,79' }}
+                style={{ background: 'none', color: 'rgb(79,79,79',margin: '10px' }}
               >
                 Cancel
               </button>
-              <button className='submit-button' type='submit'>
-                Create
+              <button className='submit-button' type='submit' style={{margin: '10px', marginLeft: '10%'}}>
+                Add
               </button>
             </div>
           </form>
@@ -185,7 +191,7 @@ const Home = () => {
 
       {
         (showEditModal) && (
-          <div className='form-container' style={{ fontSize: '25px' }}>
+          <div className='form-container-entry basic-padding'>
           <form onSubmit={handleSubmit(onEdit)} className='entry-form'>
             <p>New {id}</p>
             {selectedFields.map((item) => (
@@ -195,7 +201,8 @@ const Home = () => {
                   {...register(item.name, {
                     required: true,
                   })}
-                  defaultValue={selectedEntries.filter((entry)=> entry.collectionId === item.collectionId)[0].entryValues[item.name]}
+                  defaultValue={selectedEntries.filter((entry)=> entry.id === editID)[0].entryValues[item.name]}
+                  style={{width: '100%', height: '20px'}}
                 />
                 {errors[item.name] && (
                   <p className='error' style={{ fontSize: '20px' }}>
@@ -207,12 +214,12 @@ const Home = () => {
 
             <div className='button-container-1'>
               <button
-                onClick={() => setShowEditModal(false)}
-                style={{ background: 'none', color: 'rgb(79,79,79' }}
+                onClick={handleCloseShowEditModal}
+                style={{ background: 'none', color: 'rgb(79,79,79', margin: '10px' }}
               >
                 Cancel
               </button>
-              <button className='submit-button' type='submit'>
+              <button className='submit-button' type='submit' style={{margin: '10px', marginLeft: '10%'}}>
                 Edit
               </button>
             </div>
