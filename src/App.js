@@ -1,5 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LOGIN_ROUTE, ERROR_ROUTE, REGISTER_ROUTE, HOME_ROUTE,DEFAULT_ROUTE } from './constants/routes';
+import {
+  LOGIN_ROUTE,
+  ERROR_ROUTE,
+  REGISTER_ROUTE,
+  HOME_ROUTE,
+  DEFAULT_ROUTE,
+} from './constants/routes';
 import Login from './pages/login';
 import Register from './pages/register';
 import Home from './pages/home';

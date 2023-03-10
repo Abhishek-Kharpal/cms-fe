@@ -2,7 +2,7 @@ import entryImage from '../../assets/entry-image/entry-image.png';
 import LoginForm from '../../components/loginForm';
 import './style.css';
 
-const Login = ()=>{
+const Login = () => {
   return (
     <div className='login-page'>
       <div className='entry-image'>
@@ -13,7 +13,7 @@ const Login = ()=>{
           <div>Login to your CMS+ account</div>
         </div>
         <div className='form-container-1'>
-          <LoginForm/>
+          <LoginForm />
         </div>
       </div>
     </div>

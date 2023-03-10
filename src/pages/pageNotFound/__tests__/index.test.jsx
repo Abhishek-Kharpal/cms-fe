@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PageNotFound from '../index';
 
 describe('When user try to visit any page that does not exist', () => {

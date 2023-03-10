@@ -249,8 +249,17 @@ const Home = () => {
               <p className='error'>This field is required</p>
             )}
             <div className='button-container'>
-              <button onClick={() => setShowModal(false)} style={{background: 'none',border: 'none'}}>Cancel</button>
-              <button className='submit-button' type='submit' style={{background: 'rgb(77,64,206)',color: '#f5f5f5'}}>
+              <button
+                onClick={() => setShowModal(false)}
+                style={{ background: 'none', border: 'none' }}
+              >
+                Cancel
+              </button>
+              <button
+                className='submit-button'
+                type='submit'
+                style={{ background: 'rgb(77,64,206)', color: '#f5f5f5' }}
+              >
                 Create
               </button>
             </div>

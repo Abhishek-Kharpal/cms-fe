@@ -9,32 +9,33 @@ const makeRequest = async (
   baseURL,
 ) => {
   try {
-    const requestBody = (baseURL!==BACKEND_URL)?{
-      baseURL: baseURL,
-      url: apiEndPoint.url,
-      method: apiEndPoint.method,
-      ...dynamicContent,
-    }:{
-      baseURL: baseURL,
-      url: apiEndPoint.url,
-      method: apiEndPoint.method,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      ...dynamicContent,
-    }
+    const requestBody =
+      baseURL !== BACKEND_URL
+        ? {
+            baseURL: baseURL,
+            url: apiEndPoint.url,
+            method: apiEndPoint.method,
+            ...dynamicContent,
+          }
+        : {
+            baseURL: baseURL,
+            url: apiEndPoint.url,
+            method: apiEndPoint.method,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            ...dynamicContent,
+          };
     const { data } = await axios(requestBody);
     return data;
   } catch (e) {
     if (navigate) {
       const errorStatus = e.error;
-      if((baseURL===BACKEND_URL)&&(localStorage.getItem('token')===null)){
+      if (baseURL === BACKEND_URL && localStorage.getItem('token') === null) {
         navigate('/login');
-      }
-      else if (errorStatus) {
+      } else if (errorStatus) {
         navigate(`${ERROR_ROUTE}/${errorStatus}`);
-      } 
-      else {
+      } else {
         navigate(ERROR_ROUTE);
       }
     }
